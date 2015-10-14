@@ -2,15 +2,22 @@ package com.group6a_hw05.group6a_hw05;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements XMLParserAsync.IGetFeeds{
+
+    private final String fPODCAST_RSS = "http://www.npr.org/rss/podcast.php?id=510298";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new XMLParserAsync(this).execute(fPODCAST_RSS);
     }
 
     @Override
@@ -33,5 +40,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void putList(ArrayList<Podcast> feeds) {
+
+        Log.d("Parsed Data Feeds",feeds.toString());
     }
 }
