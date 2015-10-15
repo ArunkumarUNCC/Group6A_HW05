@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Group6A_HW05</string>
+    <string name="app_name">TED Radio Hour Podcast</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="episodeTitle">Episode Title</string>
+    <string name="dateTime">posted: Day, DD. MON YYYY</string>
+    <string name="playNowText">Play Now</string>
 </resources>
