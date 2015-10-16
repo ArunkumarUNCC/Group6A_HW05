@@ -1,5 +1,6 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,11 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         setContentView(R.layout.activity_main);
 
         new XMLParserAsync(this).execute(fPODCAST_RSS);
+
+        //displaying app icon
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ted_icon);
     }
 
     @Override
