@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         fRecycler = (RecyclerView) findViewById(R.id.RecyclerView);
 
         new XMLParserAsync(this).execute(fPODCAST_RSS);
+
+        //displaying app icon
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ted_icon);
     }
 
     @Override
