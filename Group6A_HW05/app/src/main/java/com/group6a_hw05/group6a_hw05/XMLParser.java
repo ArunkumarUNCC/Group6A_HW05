@@ -1,5 +1,6 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.util.Log;
 import android.util.Xml;
 
 import org.xml.sax.Attributes;
@@ -49,7 +50,7 @@ public class XMLParser {
 
             if (localName.equals("item") || localName.equals("channel")){
                 podcast = new Podcast();
-            } else if(localName.equals("itunes:image")){
+            } else if(localName.equals("image")){
                 podcast.setImage(attributes.getValue("href"));
             } else if(localName.equals("enclosure")){
                 podcast.setAudio(attributes.getValue("url"));
@@ -81,7 +82,11 @@ public class XMLParser {
             super.characters(ch, start, length);
 
             xmlInnerText.append(ch,start,length);
+
+            if (xmlInnerText.equals("itunes:image"))
+                podcast.setImage("Hello");
         }
 
     }
+
 }

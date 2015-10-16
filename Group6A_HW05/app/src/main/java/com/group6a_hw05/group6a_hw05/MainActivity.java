@@ -1,7 +1,11 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,12 +14,23 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements XMLParserAsync.IGetFeeds{
 
+    ArrayList<Podcast> fPodcastList;
+    String fCurrentView = "Linear";
+
+    RecyclerView fRecycler;
+    LinearLayoutManager fRecyclerLayout;
+
     private final String fPODCAST_RSS = "http://www.npr.org/rss/podcast.php?id=510298";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+
+        fRecycler = (RecyclerView) findViewById(R.id.RecyclerView);
 
         new XMLParserAsync(this).execute(fPODCAST_RSS);
     }
@@ -34,17 +49,52 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+
+            case R.id.RecycleViews:
+                if(fCurrentView.equals("Linear"))
+                    fCurrentView = "Grid";
+                else fCurrentView = "Linear";
+
+                setRecyclerView();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     public void putList(ArrayList<Podcast> feeds) {
+        fPodcastList = new ArrayList<Podcast>();
+        fPodcastList = feeds;
 
-        Log.d("Parsed Data Feeds",feeds.toString());
+        setRecyclerView();
+
     }
+
+    public void setRecyclerView(){
+        if (fCurrentView.equals("Linear")){
+            fRecyclerLayout = new LinearLayoutManager(this);
+            fRecycler.setLayoutManager(fRecyclerLayout);
+
+            RecyclerAdapter lRecyclerAdapter = new RecyclerAdapter(fPodcastList,MainActivity.this);
+            fRecycler.setAdapter(lRecyclerAdapter);
+        }
+        else{
+
+            fRecyclerLayout = new GridLayoutManager(this,2);
+            fRecycler.setLayoutManager(fRecyclerLayout);
+
+            RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList,MainActivity.this);
+            fRecycler.setAdapter(lRecyclerAdapter);
+        }
+
+    }
+
+
 }
