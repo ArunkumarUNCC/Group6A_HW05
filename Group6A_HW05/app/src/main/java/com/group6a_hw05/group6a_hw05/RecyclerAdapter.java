@@ -2,6 +2,7 @@ package com.group6a_hw05.group6a_hw05;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PodcastLinearViewHolder> {
@@ -20,6 +22,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     ArrayList<Podcast> fPodcastsForDisplay;
     Context fContext;
+    MediaPlayer fMediaPlayer;
 
     public RecyclerAdapter(ArrayList<Podcast> fPodcastsForDisplay,Context aContext) {
         this.fPodcastsForDisplay = fPodcastsForDisplay;
@@ -97,6 +100,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     //Function to implement play audio
     public void playAudio(String aAudioStreamLink){
+        if(!true){
+            fMediaPlayer = new MediaPlayer();
+//            fMediaPlayer.setOnPreparedListener(this);
+            try {
+                fMediaPlayer.setDataSource(aAudioStreamLink);
+                fMediaPlayer.prepare();
+                fMediaPlayer.start();
+//                fIsPlayed = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            fMediaPlayer.start();
+        }
 
     }
 }

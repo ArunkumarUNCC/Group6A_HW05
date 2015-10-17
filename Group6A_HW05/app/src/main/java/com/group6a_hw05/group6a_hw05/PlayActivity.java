@@ -1,7 +1,9 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.annotation.TargetApi;
 import android.media.MediaPlayer;
 import android.media.session.MediaController;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,13 +23,16 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
     ImageView fEpisodeIcon, fPlayButton, fPauseButton;
     Podcast fPodcastData;
     String fAudioFile;
-    MediaPlayer fMediaPlayer = new MediaPlayer();
+    MediaPlayer fMediaPlayer;
+    Boolean fIsPlayed;
     final String fPODCASTREF = "PodcastRef";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        fMediaPlayer = new MediaPlayer();
 
         //displaying app icon
         ActionBar actionBar = getSupportActionBar();
@@ -38,6 +43,7 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         populateData(fPodcastData);
 
         fPauseButton.setVisibility(View.INVISIBLE);
+        fIsPlayed = false;
 
     }
 
@@ -64,22 +70,27 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
     }
 
     public void playOnClick(View aView){
-        fMediaPlayer.setOnPreparedListener(this);
-        try {
-            fMediaPlayer.setDataSource(fAudioFile);
-            fMediaPlayer.prepare();
+        if(!fIsPlayed){
+            fMediaPlayer.setOnPreparedListener(this);
+            try {
+                fMediaPlayer.setDataSource(fAudioFile);
+                fMediaPlayer.prepare();
+                fMediaPlayer.start();
+                fIsPlayed = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
             fMediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+//        int lTest = fMediaPlayer.getDuration();
+//        fMediaPlayer.
         fPlayButton.setVisibility(View.INVISIBLE);
         fPauseButton.setVisibility(View.VISIBLE);
     }
 
     public void pauseOnClick(View aView){
-        fMediaPlayer.stop();
-        fMediaPlayer.release();
-        fMediaPlayer.release();
+        fMediaPlayer.pause();
 
         fPauseButton.setVisibility(View.INVISIBLE);
         fPlayButton.setVisibility(View.VISIBLE);

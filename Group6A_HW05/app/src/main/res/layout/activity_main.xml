@@ -12,5 +12,34 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/recyclerViewBottomMargin" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarEpisodeLength"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewPlayButton"
+        android:src="@android:drawable/ic_media_play"
+        android:tint="#666666"
+        android:onClick="@string/playOnClick"
+        android:layout_above="@+id/progressBarEpisodeLength"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewPauseButton"
+        android:src="@android:drawable/ic_media_pause"
+        android:tint="#666666"
+        android:onClick="@string/pauseOnClick"
+        android:layout_alignTop="@+id/imageViewPlayButton"
+        android:layout_alignLeft="@+id/imageViewPlayButton"
+        android:layout_alignStart="@+id/imageViewPlayButton" />
+
 
 </RelativeLayout>

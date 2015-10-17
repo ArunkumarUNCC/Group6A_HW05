@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 
@@ -16,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
 
     ArrayList<Podcast> fPodcastList;
     String fCurrentView = "Linear";
-
+    public ImageView fPlayButton, fPauseButton;
+    public ProgressBar fEpisodeProgress;
     RecyclerView fRecycler;
     LinearLayoutManager fRecyclerLayout;
 
@@ -31,6 +36,13 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
 
         fRecycler = (RecyclerView) findViewById(R.id.RecyclerView);
+        fPlayButton = (ImageView) findViewById(R.id.imageViewPlayButton);
+        fPauseButton = (ImageView) findViewById(R.id.imageViewPauseButton);
+        fEpisodeProgress = (ProgressBar) findViewById(R.id.progressBarEpisodeLength);
+
+        fPlayButton.setVisibility(View.INVISIBLE);
+        fPauseButton.setVisibility(View.INVISIBLE);
+        fEpisodeProgress.setVisibility(View.INVISIBLE);
 
         new XMLParserAsync(this).execute(fPODCAST_RSS);
 
