@@ -25,28 +25,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/episodeDescPrefix"
-        android:id="@+id/textViewEpisodeDescriptionPrefix"
-        android:textSize="20dp"
-        android:textColor="#0000ff"
-        android:maxLines="1"
-        android:paddingLeft="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/imageViewEpisodeIcon"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/descipPlaceHolder"
         android:id="@+id/textViewEpisodeDescription"
         android:textSize="20dp"
         android:textColor="#000000"
         android:paddingLeft="4dp"
+        android:paddingBottom="30dp"
         android:layout_gravity="center_horizontal"
-        android:layout_alignBottom="@+id/textViewEpisodeDescriptionPrefix"
-        android:layout_toRightOf="@+id/textViewEpisodeDescriptionPrefix"
-        android:layout_toEndOf="@+id/textViewEpisodeDescriptionPrefix" />
+        android:layout_below="@+id/imageViewEpisodeIcon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,11 +44,11 @@
         android:textSize="20dp"
         android:textColor="#000000"
         android:paddingLeft="4dp"
+        android:paddingBottom="30dp"
         android:layout_gravity="center_horizontal"
-        android:layout_above="@+id/textViewDuration"
+        android:layout_below="@+id/textViewEpisodeDescription"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="23dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,19 +60,19 @@
         android:maxLines="1"
         android:paddingLeft="4dp"
         android:layout_gravity="center_horizontal"
-        android:layout_above="@+id/imageViewPlayButton"
+        android:layout_below="@+id/textViewDescripDate"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewPlayButton"
         android:src="@android:drawable/ic_media_play"
+        android:layout_below="@+id/textViewDuration"
         android:tint="#666666"
-        android:layout_above="@+id/seekBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="31dp" />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="400dp"
@@ -96,11 +83,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <SeekBar
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
+        android:id="@+id/progressBarEpisodeLength"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

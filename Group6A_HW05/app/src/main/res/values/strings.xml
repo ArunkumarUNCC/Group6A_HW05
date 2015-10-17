@@ -7,7 +7,7 @@
     <string name="dateTime">posted: Day, DD. MON YYYY</string>
     <string name="playNowText">Play Now</string>
     <string name="title_activity_play">Play!</string>
-    <string name="episodeDescPrefix">Description:</string>
+    <string name="episodeDescPrefix">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="descipPlaceHolder">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="descripDatePlaceHolder">Publication Date:  MM/DD/YYYY</string>
     <string name="descripDurationPlaceHolder">Duration: ###</string>
