@@ -15,15 +15,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by Arunkumar's on 10/15/2015.
- */
+
 public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.PodcastGridViewHolder> {
     ArrayList<Podcast> fPodcastsForDisplay;
     Context fContext;
 
-    public RecyclerAdapter2(ArrayList<Podcast> fPodcastsForDisplay,Context aContext) {
-        this.fPodcastsForDisplay = fPodcastsForDisplay;
+    public RecyclerAdapter2(ArrayList<Podcast> aPodcastsForDisplay, Context aContext) {
+        this.fPodcastsForDisplay = aPodcastsForDisplay;
         this.fContext = aContext;
     }
 

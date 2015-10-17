@@ -4,7 +4,8 @@ package com.group6a_hw05.group6a_hw05;
  * Created by Arunkumar's on 10/14/2015.
  */
 public class Podcast {
-    String title,description,image,duration,publicationDate,audio;
+    String title, description, image,
+            duration, publicationDate, audio;
 
     public String getTitle() {
         return title;
