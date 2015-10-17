@@ -103,6 +103,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewPauseButton"
+                android:src="@android:drawable/ic_media_pause"
+                android:tint="#666666"
+                android:onClick="@string/pauseOnClick"
+                android:layout_alignTop="@+id/imageViewPlayButton"
+                android:layout_alignLeft="@+id/imageViewPlayButton"
+                android:layout_alignStart="@+id/imageViewPlayButton" />
         </RelativeLayout>
     </ScrollView>
 

@@ -18,9 +18,10 @@ import java.io.IOException;
 public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
 
     TextView fEpisodeTitle, fDescription, fDate, fDuration;
-    ImageView fEpisodeIcon;
+    ImageView fEpisodeIcon, fPlayButton, fPauseButton;
     Podcast fPodcastData;
     String fAudioFile;
+    MediaPlayer fMediaPlayer = new MediaPlayer();
     final String fPODCASTREF = "PodcastRef";
 
     @Override
@@ -36,7 +37,7 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         findItems();
         populateData(fPodcastData);
 
-
+        fPauseButton.setVisibility(View.INVISIBLE);
 
     }
 
@@ -63,17 +64,26 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
     }
 
     public void playOnClick(View aView){
-        MediaPlayer lMediaPlayer = new MediaPlayer();
-//        MediaController lMediaController = new MediaController(this);
-        lMediaPlayer.setOnPreparedListener(this);
-
+        fMediaPlayer.setOnPreparedListener(this);
         try {
-            lMediaPlayer.setDataSource(fAudioFile);
-            lMediaPlayer.prepare();
-            lMediaPlayer.start();
+            fMediaPlayer.setDataSource(fAudioFile);
+            fMediaPlayer.prepare();
+            fMediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        fPlayButton.setVisibility(View.INVISIBLE);
+        fPauseButton.setVisibility(View.VISIBLE);
+    }
+
+    public void pauseOnClick(View aView){
+        fMediaPlayer.stop();
+        fMediaPlayer.release();
+        fMediaPlayer.release();
+
+        fPauseButton.setVisibility(View.INVISIBLE);
+        fPlayButton.setVisibility(View.VISIBLE);
+
     }
 
     public void populateData(Podcast aPodcast){
@@ -92,6 +102,8 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         fDuration = (TextView) findViewById(R.id.textViewDuration);
         fEpisodeIcon = (ImageView) findViewById(R.id.imageViewEpisodeIcon);
         fPodcastData = (Podcast) getIntent().getSerializableExtra(fPODCASTREF);
+        fPlayButton = (ImageView) findViewById(R.id.imageViewPlayButton);
+        fPauseButton = (ImageView) findViewById(R.id.imageViewPauseButton);
     }
 
     @Override

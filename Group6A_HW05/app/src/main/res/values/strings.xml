@@ -12,4 +12,5 @@
     <string name="descripDatePlaceHolder">Publication Date:  MM/DD/YYYY</string>
     <string name="descripDurationPlaceHolder">Duration: ###</string>
     <string name="playOnClick">playOnClick</string>
+    <string name="pauseOnClick">pauseOnClick</string>
 </resources>
