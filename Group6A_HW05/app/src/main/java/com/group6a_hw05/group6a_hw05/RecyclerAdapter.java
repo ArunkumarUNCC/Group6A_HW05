@@ -1,6 +1,7 @@
 package com.group6a_hw05.group6a_hw05;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PodcastLinearViewHolder> {
+    final String fGOTOPLAYACTIVITY = "com.group6a_hw05.group6a_hw05.intent.action.PLAYACTIVITY";
+    final String fPODCASTREF = "PodcastRef";
+
     ArrayList<Podcast> fPodcastsForDisplay;
     Context fContext;
 
@@ -23,17 +27,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     }
 
     public static class PodcastLinearViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout lPodcastItems;
-        TextView lTitle, lDate;
-        ImageView lIcon;
+        RelativeLayout rLPodcastItems;
+        TextView tVTitle, tVDate;
+        ImageView iVIcon,iVPlay;
 
         public PodcastLinearViewHolder(View aItemView) {
             super(aItemView);
 
-            lPodcastItems = (RelativeLayout) aItemView.findViewById(R.id.relativeLayoutPodcastItems);
-            lTitle = (TextView) aItemView.findViewById(R.id.textViewTitle);
-            lDate = (TextView) aItemView.findViewById(R.id.textViewDate);
-            lIcon = (ImageView) aItemView.findViewById(R.id.imageViewIcon);
+            rLPodcastItems = (RelativeLayout) aItemView.findViewById(R.id.relativeLayoutPodcastItems);
+            tVTitle = (TextView) aItemView.findViewById(R.id.textViewTitle);
+            tVDate = (TextView) aItemView.findViewById(R.id.textViewDate);
+            iVIcon = (ImageView) aItemView.findViewById(R.id.imageViewIcon);
+            iVPlay = (ImageView) aItemView.findViewById(R.id.imageViewPlayButton);
+
         }
     }
 
@@ -45,16 +51,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     }
 
     @Override
-    public void onBindViewHolder(PodcastLinearViewHolder aPodcastViewHolder, int i) {
+    public void onBindViewHolder(PodcastLinearViewHolder aPodcastViewHolder, final int i) {
         String lImage = fPodcastsForDisplay.get(i).getImage();
         if (lImage != null) {
             Picasso.with(fContext).load(lImage)
-                    .resize(40, 40).into(aPodcastViewHolder.lIcon);
+                    .resize(40, 40).into(aPodcastViewHolder.iVIcon);
         }
         else Picasso.with(fContext).load(R.drawable.no_image)
-                .resize(40, 40).into(aPodcastViewHolder.lIcon);
-        aPodcastViewHolder.lTitle.setText(fPodcastsForDisplay.get(i).getTitle());
-        aPodcastViewHolder.lDate.setText(fPodcastsForDisplay.get(i).getPublicationDate());
+                .resize(40, 40).into(aPodcastViewHolder.iVIcon);
+        aPodcastViewHolder.tVTitle.setText(fPodcastsForDisplay.get(i).getTitle());
+        aPodcastViewHolder.tVDate.setText(fPodcastsForDisplay.get(i).getPublicationDate());
+
+        aPodcastViewHolder.tVTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlayActivity(fPodcastsForDisplay.get(i));
+            }
+        });
+
+        aPodcastViewHolder.iVPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudio(fPodcastsForDisplay.get(i).getAudio());
+            }
+        });
     }
 
     @Override
@@ -65,5 +85,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     @Override
     public void onAttachedToRecyclerView(RecyclerView aRecyclerView) {
         super.onAttachedToRecyclerView(aRecyclerView);
+    }
+
+    //Function to start with Play Activity
+    public void startPlayActivity(Podcast apodcastItem){
+        Intent intent = new Intent(fGOTOPLAYACTIVITY);
+        intent.putExtra(fPODCASTREF,apodcastItem);
+        fContext.startActivity(intent);
+    }
+
+
+    //Function to implement play audio
+    public void playAudio(String aAudioStreamLink){
+
     }
 }

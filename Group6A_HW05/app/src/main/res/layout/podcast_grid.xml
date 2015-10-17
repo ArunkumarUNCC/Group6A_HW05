@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="@dimen/PlayButtonWidth"
             android:layout_height="@dimen/PlayButtonHeight"
-            android:id="@+id/imageViewPlayButton"
+            android:id="@+id/imageViewPlayButtonGrid"
             android:src="@drawable/play"
             android:scaleType="fitXY"
             android:layout_gravity="center" />

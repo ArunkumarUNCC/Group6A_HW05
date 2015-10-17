@@ -69,7 +69,8 @@ public class XMLParser {
             } else if(localName.equals("description")){
                 podcast.setDescription(xmlInnerText.toString().trim());
             } else if(localName.equals("pubDate")){
-                podcast.setPublicationDate(xmlInnerText.toString().trim());
+                String[] lTempPubDate = xmlInnerText.toString().trim().split("[0-9]{2}:[0-9]{2}:[0-9]{2}");
+                podcast.setPublicationDate(lTempPubDate[0]);
             } else if(localName.equals("duration")){
                 podcast.setDuration(xmlInnerText.toString().trim());
             }
