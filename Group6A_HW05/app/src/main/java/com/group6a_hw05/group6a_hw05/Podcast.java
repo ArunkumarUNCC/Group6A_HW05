@@ -2,9 +2,6 @@ package com.group6a_hw05.group6a_hw05;
 
 import java.io.Serializable;
 
-/**
- * Created by Arunkumar's on 10/14/2015.
- */
 public class Podcast implements Serializable{
     String title, description, image,
             duration, publicationDate, audio;

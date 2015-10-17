@@ -6,8 +6,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class PlayActivity extends AppCompatActivity {
+
+    TextView fEpisodeTitle, fDescription, fDate, fDuration;
+    ImageView fEpisodeIcon;
+    Podcast fPodcastData;
+    final String fPODCASTREF = "PodcastRef";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,12 @@ public class PlayActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.ted_icon);
+
+        findItems();
+        populateData(fPodcastData);
+
+
+
     }
 
     @Override
@@ -44,5 +59,22 @@ public class PlayActivity extends AppCompatActivity {
 
     public void playOnClick(View aView){
 
+    }
+
+    public void populateData(Podcast aPodcast){
+        fEpisodeTitle.setText(aPodcast.getTitle());
+        fDescription.setText("Description: " + aPodcast.getDescription());
+        fDate.setText("Publication Date: " + aPodcast.getPublicationDate());
+        fDuration.setText("Duration: " + aPodcast.getDuration());
+        Picasso.with(this).load(aPodcast.getImage()).into(fEpisodeIcon);
+    }
+
+    public void findItems(){
+        fEpisodeTitle = (TextView) findViewById(R.id.textViewEpisodeTitle);
+        fDescription = (TextView) findViewById(R.id.textViewEpisodeDescription);
+        fDate = (TextView) findViewById(R.id.textViewDescripDate);
+        fDuration = (TextView) findViewById(R.id.textViewDuration);
+        fEpisodeIcon = (ImageView) findViewById(R.id.imageViewEpisodeIcon);
+        fPodcastData = (Podcast) getIntent().getSerializableExtra(fPODCASTREF);
     }
 }
