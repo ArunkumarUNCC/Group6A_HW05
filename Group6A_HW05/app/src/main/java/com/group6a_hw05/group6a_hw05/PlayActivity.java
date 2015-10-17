@@ -1,5 +1,7 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.media.MediaPlayer;
+import android.media.session.MediaController;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +13,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class PlayActivity extends AppCompatActivity {
+import java.io.IOException;
+
+public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
 
     TextView fEpisodeTitle, fDescription, fDate, fDuration;
     ImageView fEpisodeIcon;
     Podcast fPodcastData;
+    String fAudioFile;
     final String fPODCASTREF = "PodcastRef";
 
     @Override
@@ -58,7 +63,17 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void playOnClick(View aView){
+        MediaPlayer lMediaPlayer = new MediaPlayer();
+//        MediaController lMediaController = new MediaController(this);
+        lMediaPlayer.setOnPreparedListener(this);
 
+        try {
+            lMediaPlayer.setDataSource(fAudioFile);
+            lMediaPlayer.prepare();
+            lMediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void populateData(Podcast aPodcast){
@@ -66,6 +81,7 @@ public class PlayActivity extends AppCompatActivity {
         fDescription.setText("Description: " + aPodcast.getDescription());
         fDate.setText("Publication Date: " + aPodcast.getPublicationDate());
         fDuration.setText("Duration: " + aPodcast.getDuration());
+        fAudioFile = aPodcast.getAudio();
         Picasso.with(this).load(aPodcast.getImage()).into(fEpisodeIcon);
     }
 
@@ -76,5 +92,10 @@ public class PlayActivity extends AppCompatActivity {
         fDuration = (TextView) findViewById(R.id.textViewDuration);
         fEpisodeIcon = (ImageView) findViewById(R.id.imageViewEpisodeIcon);
         fPodcastData = (Podcast) getIntent().getSerializableExtra(fPODCASTREF);
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+
     }
 }

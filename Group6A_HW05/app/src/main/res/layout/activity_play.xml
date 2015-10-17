@@ -82,7 +82,8 @@
                 android:layout_below="@+id/textViewDuration"
                 android:tint="#666666"
                 android:layout_marginBottom="30dp"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:onClick="@string/playOnClick" />
 
             <ImageView
                 android:layout_width="400dp"
