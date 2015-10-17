@@ -47,7 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     @Override
     public void onBindViewHolder(PodcastLinearViewHolder aPodcastViewHolder, int i) {
         String lImage = fPodcastsForDisplay.get(i).getImage();
-        if (lImage!=null) {
+        if (lImage != null) {
             Picasso.with(fContext).load(lImage)
                     .resize(40, 40).into(aPodcastViewHolder.lIcon);
         }
