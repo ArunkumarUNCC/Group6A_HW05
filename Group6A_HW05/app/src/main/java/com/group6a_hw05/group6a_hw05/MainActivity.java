@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
     public static ProgressBar fEpisodeProgress;
     RecyclerView fRecycler;
     LinearLayoutManager fRecyclerLayout;
+    static Boolean fIsPlaying = false;
 
     private final String fPODCAST_RSS = "http://www.npr.org/rss/podcast.php?id=510298";
 
@@ -73,9 +74,17 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
                 return true;
 
             case R.id.RecycleViews:
-                if(fCurrentView.equals("Linear"))
+                if(fCurrentView.equals("Linear")){
                     fCurrentView = "Grid";
-                else fCurrentView = "Linear";
+                }
+                else{
+                    fCurrentView = "Linear";
+                }
+
+                fPlayButton.setVisibility(View.INVISIBLE);
+                fPauseButton.setVisibility(View.INVISIBLE);
+                fEpisodeProgress.setVisibility(View.INVISIBLE);
+
 
                 setRecyclerView();
                 return true;
@@ -100,29 +109,47 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
 
             RecyclerAdapter lRecyclerAdapter = new RecyclerAdapter(fPodcastList,MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
+            if(fIsPlaying){
+                RecyclerAdapter2.getMediaPlayer().stop();
+                fIsPlaying = false;
+            }
+
         }
         else{
-
             fRecyclerLayout = new GridLayoutManager(this,2);
             fRecycler.setLayoutManager(fRecyclerLayout);
 
             RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList,MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
+            if(fIsPlaying){
+                RecyclerAdapter.getMediaPlayer().stop();
+                fIsPlaying = false;
+            }
+
         }
     }
 
     public static void playing(){
         fPauseButton.setVisibility(View.VISIBLE);
         fEpisodeProgress.setVisibility(View.VISIBLE);
+        fIsPlaying = true;
     }
     public void playOnClick(View aView){
-        RecyclerAdapter.getMediaPlayer().start();
+        if(fCurrentView.equals("Linear"))
+            RecyclerAdapter.getMediaPlayer().start();
+        else
+            RecyclerAdapter2.getMediaPlayer().start();
+
         fPauseButton.setVisibility(View.VISIBLE);
         fPlayButton.setVisibility(View.INVISIBLE);
     }
 
     public void pauseOnClick(View aView){
-        RecyclerAdapter.getMediaPlayer().pause();
+        if(fCurrentView.equals("Linear"))
+            RecyclerAdapter.getMediaPlayer().pause();
+        else
+            RecyclerAdapter2.getMediaPlayer().pause();
+
         fPauseButton.setVisibility(View.INVISIBLE);
         fPlayButton.setVisibility(View.VISIBLE);
     }
