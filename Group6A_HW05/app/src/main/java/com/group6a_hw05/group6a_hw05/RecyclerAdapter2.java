@@ -120,8 +120,6 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.Podc
         }
 
         ((MainActivity) fContext).playing();
-//        new MainActivity().playing();
-//        MainActivity.playing();
     }
 
     public static MediaPlayer getMediaPlayer(){
