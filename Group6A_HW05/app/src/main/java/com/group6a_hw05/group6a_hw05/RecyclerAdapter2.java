@@ -24,7 +24,7 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.Podc
 
     ArrayList<Podcast> fPodcastsForDisplay;
     Context fContext;
-    public static MediaPlayer fMediaPlayer;
+    public static MediaPlayer fMediaPlayer = null;
 
     public RecyclerAdapter2(ArrayList<Podcast> aPodcastsForDisplay, Context aContext) {
         this.fPodcastsForDisplay = aPodcastsForDisplay;
@@ -101,6 +101,15 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.Podc
 
     //Function to implement play audio
     public void playAudio(String aAudioStreamLink){
+
+        if(fMediaPlayer != null) {
+
+            if (fMediaPlayer.isPlaying())
+                fMediaPlayer.stop();
+            fMediaPlayer.release();
+            fMediaPlayer = null;
+        }
+
         fMediaPlayer = new MediaPlayer();
         try {
             fMediaPlayer.setDataSource(aAudioStreamLink);

@@ -111,10 +111,12 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
 
             RecyclerAdapter lRecyclerAdapter = new RecyclerAdapter(fPodcastList, MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
-            if(fIsPlaying){
-                RecyclerAdapter2.getMediaPlayer().stop();
-                fIsPlaying = false;
-            }
+
+                if (fIsPlaying) {
+                    RecyclerAdapter2.getMediaPlayer().stop();
+
+                    fIsPlaying = false;
+                }
 
         }
         else{
@@ -123,16 +125,19 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
 
             RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList, MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
-            if(fIsPlaying){
-                RecyclerAdapter.getMediaPlayer().stop();
-                fIsPlaying = false;
-            }
+
+                if (fIsPlaying) {
+                    RecyclerAdapter.getMediaPlayer().stop();
+
+                    fIsPlaying = false;
+                }
 
         }
     }
 
     public void playing(){
         fPauseButton.setVisibility(View.VISIBLE);
+        fPlayButton.setVisibility(View.INVISIBLE);
         fEpisodeProgress.setVisibility(View.VISIBLE);
         fIsPlaying = true;
 
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
                     }
                 }else{
                     if (RecyclerAdapter2.getMediaPlayer() != null){
-                        lCurrentPosition = ((RecyclerAdapter2.getMediaPlayer().getCurrentPosition()) * 100) / RecyclerAdapter.getMediaPlayer().getDuration();
+                        lCurrentPosition = ((RecyclerAdapter2.getMediaPlayer().getCurrentPosition()) * 100) / RecyclerAdapter2.getMediaPlayer().getDuration();
                     }
                 }
 

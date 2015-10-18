@@ -21,8 +21,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     final String fPODCASTREF = "PodcastRef";
 
     ArrayList<Podcast> fPodcastsForDisplay;
-    Context fContext;
-    public static MediaPlayer fMediaPlayer;
+    static Context fContext;
+    public static MediaPlayer fMediaPlayer = null;
 
     public RecyclerAdapter(ArrayList<Podcast> fPodcastsForDisplay,Context aContext) {
         this.fPodcastsForDisplay = fPodcastsForDisplay;
@@ -31,7 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     public static class PodcastLinearViewHolder extends RecyclerView.ViewHolder{
         RelativeLayout rLPodcastItems;
-        TextView tVTitle, tVDate;
+        TextView tVTitle, tVDate,tVPlayNow;
         ImageView iVIcon,iVPlay;
 
         public PodcastLinearViewHolder(View aItemView) {
@@ -42,7 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
             tVDate = (TextView) aItemView.findViewById(R.id.textViewDate);
             iVIcon = (ImageView) aItemView.findViewById(R.id.imageViewIcon);
             iVPlay = (ImageView) aItemView.findViewById(R.id.imageViewPlayButton);
-
+            tVPlayNow = (TextView) aItemView.findViewById(R.id.textViewPlayNow);
         }
     }
 
@@ -54,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     }
 
     @Override
-    public void onBindViewHolder(PodcastLinearViewHolder aPodcastViewHolder, final int i) {
+    public void onBindViewHolder(PodcastLinearViewHolder aPodcastViewHolder, final int i)  {
         String lImage = fPodcastsForDisplay.get(i).getImage();
         if (lImage != null) {
             Picasso.with(fContext).load(lImage)
@@ -65,13 +65,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
         aPodcastViewHolder.tVTitle.setText(fPodcastsForDisplay.get(i).getTitle());
         aPodcastViewHolder.tVDate.setText(fPodcastsForDisplay.get(i).getPublicationDate());
 
-        aPodcastViewHolder.tVTitle.setOnClickListener(new View.OnClickListener() {
+        aPodcastViewHolder.rLPodcastItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startPlayActivity(fPodcastsForDisplay.get(i));
             }
         });
 
+        aPodcastViewHolder.tVPlayNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudio(fPodcastsForDisplay.get(i).getAudio());
+            }
+        });
         aPodcastViewHolder.iVPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +106,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     //Function to implement play audio
     public void playAudio(String aAudioStreamLink ){
-            fMediaPlayer = new MediaPlayer();
+
+        if(fMediaPlayer != null) {
+
+            if (fMediaPlayer.isPlaying())
+                fMediaPlayer.stop();
+            fMediaPlayer.release();
+            fMediaPlayer = null;
+        }
+
+        fMediaPlayer = new MediaPlayer();
+
             try {
                 fMediaPlayer.setDataSource(aAudioStreamLink);
                 fMediaPlayer.prepare();

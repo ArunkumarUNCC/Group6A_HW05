@@ -120,7 +120,7 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         fEpisodeTitle.setText(aPodcast.getTitle());
         fDescription.setText("Description: " + aPodcast.getDescription());
         fDate.setText("Publication Date: " + aPodcast.getPublicationDate());
-        fDuration.setText("Duration: " + aPodcast.getDuration());
+        fDuration.setText("Duration: " + Math.round(Double.parseDouble(aPodcast.getDuration())/60*100.0)/100.0+" minutes");
         fAudioFile = aPodcast.getAudio();
         Picasso.with(this).load(aPodcast.getImage()).into(fEpisodeIcon);
 
