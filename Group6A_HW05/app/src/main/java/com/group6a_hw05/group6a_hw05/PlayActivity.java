@@ -4,13 +4,17 @@ import android.annotation.TargetApi;
 import android.media.MediaPlayer;
 import android.media.session.MediaController;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,7 +29,10 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
     String fAudioFile;
     MediaPlayer fMediaPlayer;
     Boolean fIsPlayed;
+    ProgressBar fEpisodeProgress;
     final String fPODCASTREF = "PodcastRef";
+    static Handler fHandler;
+    int fEpisodeDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,19 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
             fMediaPlayer.start();
         }
 
+        fHandler = new Handler();
+        PlayActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (fMediaPlayer!=null){
+                    int lCurrentPosition = ((fMediaPlayer.getCurrentPosition())*100)/fEpisodeDuration;
+                    fEpisodeProgress.setProgress(lCurrentPosition);
+                }
+
+                fHandler.postDelayed(this,1000);
+            }
+        });
+
         fPlayButton.setVisibility(View.INVISIBLE);
         fPauseButton.setVisibility(View.VISIBLE);
     }
@@ -103,6 +123,9 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         fDuration.setText("Duration: " + aPodcast.getDuration());
         fAudioFile = aPodcast.getAudio();
         Picasso.with(this).load(aPodcast.getImage()).into(fEpisodeIcon);
+
+        fEpisodeDuration = Integer.parseInt(aPodcast.getDuration()) * 1000;
+        fEpisodeProgress.setMax(100);
     }
 
     public void findItems(){
@@ -114,6 +137,7 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         fPodcastData = (Podcast) getIntent().getSerializableExtra(fPODCASTREF);
         fPlayButton = (ImageView) findViewById(R.id.imageViewPlayButton);
         fPauseButton = (ImageView) findViewById(R.id.imageViewPauseButton);
+        fEpisodeProgress = (ProgressBar) findViewById(R.id.progressBarEpisodeLength);
     }
 
     @Override
