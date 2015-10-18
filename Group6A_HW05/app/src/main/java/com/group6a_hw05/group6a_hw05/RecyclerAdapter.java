@@ -108,7 +108,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        new MainActivity().playing();
+
+        ((MainActivity) fContext).playing();
+//        new MainActivity().playing();
 //        MainActivity.playing();
     }
 

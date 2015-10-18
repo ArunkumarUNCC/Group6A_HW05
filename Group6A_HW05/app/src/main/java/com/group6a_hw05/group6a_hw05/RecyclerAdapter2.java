@@ -1,5 +1,6 @@
 package com.group6a_hw05.group6a_hw05;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -108,7 +109,9 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.Podc
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new MainActivity().playing();
+
+        ((MainActivity) fContext).playing();
+//        new MainActivity().playing();
 //        MainActivity.playing();
     }
 

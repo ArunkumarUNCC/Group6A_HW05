@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
             fRecyclerLayout = new LinearLayoutManager(this);
             fRecycler.setLayoutManager(fRecyclerLayout);
 
-            RecyclerAdapter lRecyclerAdapter = new RecyclerAdapter(fPodcastList,MainActivity.this);
+            RecyclerAdapter lRecyclerAdapter = new RecyclerAdapter(fPodcastList, MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
             if(fIsPlaying){
                 RecyclerAdapter2.getMediaPlayer().stop();
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
             fRecyclerLayout = new GridLayoutManager(this,2);
             fRecycler.setLayoutManager(fRecyclerLayout);
 
-            RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList,MainActivity.this);
+            RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList, MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
             if(fIsPlaying){
                 RecyclerAdapter.getMediaPlayer().stop();
