@@ -100,19 +100,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     //Function to implement play audio
     public void playAudio(String aAudioStreamLink ){
-        if(true){
             fMediaPlayer = new MediaPlayer();
             try {
                 fMediaPlayer.setDataSource(aAudioStreamLink);
                 fMediaPlayer.prepare();
                 fMediaPlayer.start();
-//                fIsPlayed = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
-            fMediaPlayer.start();
-        }
+
 //        fMediaPlayer.getc
         MainActivity.playing();
     }
