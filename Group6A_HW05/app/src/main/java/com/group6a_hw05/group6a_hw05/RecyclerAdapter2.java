@@ -108,7 +108,8 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.Podc
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MainActivity.playing();
+        new MainActivity().playing();
+//        MainActivity.playing();
     }
 
     public static MediaPlayer getMediaPlayer(){

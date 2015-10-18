@@ -144,4 +144,11 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
     public void onPrepared(MediaPlayer mp) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        fMediaPlayer.stop();
+        this.finish();
+    }
 }

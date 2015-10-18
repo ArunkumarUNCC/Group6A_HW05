@@ -1,6 +1,7 @@
 package com.group6a_hw05.group6a_hw05;
 //Michael Vitulli
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
     RecyclerView fRecycler;
     LinearLayoutManager fRecyclerLayout;
     static Boolean fIsPlaying = false;
+    static Handler fHandler;
 
     private final String fPODCAST_RSS = "http://www.npr.org/rss/podcast.php?id=510298";
 
@@ -129,10 +131,33 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         }
     }
 
-    public static void playing(){
+    public void playing(){
         fPauseButton.setVisibility(View.VISIBLE);
         fEpisodeProgress.setVisibility(View.VISIBLE);
         fIsPlaying = true;
+
+        fHandler = new Handler();
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int lCurrentPosition = 0;
+                if(fCurrentView.equals("Linear")){
+                    if (RecyclerAdapter.getMediaPlayer() != null){
+                        lCurrentPosition = ((RecyclerAdapter.getMediaPlayer().getCurrentPosition()) * 100) / RecyclerAdapter.getMediaPlayer().getDuration();
+                    }
+                }else{
+                    if (RecyclerAdapter2.getMediaPlayer() != null){
+                        lCurrentPosition = ((RecyclerAdapter2.getMediaPlayer().getCurrentPosition()) * 100) / RecyclerAdapter.getMediaPlayer().getDuration();
+                    }
+                }
+
+                fEpisodeProgress.setProgress(lCurrentPosition);
+                fHandler.postDelayed(this, 1000);
+            }
+        });
+
+
+
     }
     public void playOnClick(View aView){
         if(fCurrentView.equals("Linear"))
