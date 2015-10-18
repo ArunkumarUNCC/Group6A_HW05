@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
 
     ArrayList<Podcast> fPodcastList;
     String fCurrentView = "Linear";
-    public ImageView fPlayButton, fPauseButton;
-    public ProgressBar fEpisodeProgress;
+    public static ImageView fPlayButton, fPauseButton;
+    public static ProgressBar fEpisodeProgress;
     RecyclerView fRecycler;
     LinearLayoutManager fRecyclerLayout;
 
@@ -109,5 +109,21 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
             RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList,MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
         }
+    }
+
+    public static void playing(){
+        fPauseButton.setVisibility(View.VISIBLE);
+        fEpisodeProgress.setVisibility(View.VISIBLE);
+    }
+    public void playOnClick(View aView){
+        RecyclerAdapter.getMediaPlayer().start();
+        fPauseButton.setVisibility(View.VISIBLE);
+        fPlayButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void pauseOnClick(View aView){
+        RecyclerAdapter.getMediaPlayer().pause();
+        fPauseButton.setVisibility(View.INVISIBLE);
+        fPlayButton.setVisibility(View.VISIBLE);
     }
 }

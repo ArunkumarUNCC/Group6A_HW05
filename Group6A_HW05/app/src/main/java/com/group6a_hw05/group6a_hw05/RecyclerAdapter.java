@@ -22,7 +22,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     ArrayList<Podcast> fPodcastsForDisplay;
     Context fContext;
-    MediaPlayer fMediaPlayer;
+    public static MediaPlayer fMediaPlayer;
 
     public RecyclerAdapter(ArrayList<Podcast> fPodcastsForDisplay,Context aContext) {
         this.fPodcastsForDisplay = fPodcastsForDisplay;
@@ -100,20 +100,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
 
     //Function to implement play audio
     public void playAudio(String aAudioStreamLink ){
-//        if(!true){
-//            fMediaPlayer = new MediaPlayer();
-////            fMediaPlayer.setOnPreparedListener(this);
-//            try {
-//                fMediaPlayer.setDataSource(aAudioStreamLink);
-//                fMediaPlayer.prepare();
-//                fMediaPlayer.start();
-////                fIsPlayed = true;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }else{
-//            fMediaPlayer.start();
-//        }
+        if(true){
+            fMediaPlayer = new MediaPlayer();
+            try {
+                fMediaPlayer.setDataSource(aAudioStreamLink);
+                fMediaPlayer.prepare();
+                fMediaPlayer.start();
+//                fIsPlayed = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            fMediaPlayer.start();
+        }
+//        fMediaPlayer.getc
+        MainActivity.playing();
+    }
 
+    public static MediaPlayer getMediaPlayer(){
+        return fMediaPlayer;
     }
 }
