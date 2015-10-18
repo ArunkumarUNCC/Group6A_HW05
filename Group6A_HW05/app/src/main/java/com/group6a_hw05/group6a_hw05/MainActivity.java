@@ -1,5 +1,6 @@
 package com.group6a_hw05.group6a_hw05;
 //Michael Vitulli
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         getSupportActionBar().setIcon(R.drawable.ic_launcher);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
@@ -81,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
     }
 
     @Override
@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
         fPodcastList = feeds;
 
         setRecyclerView();
-
     }
 
     public void setRecyclerView(){
@@ -110,8 +109,5 @@ public class MainActivity extends AppCompatActivity implements XMLParserAsync.IG
             RecyclerAdapter2 lRecyclerAdapter = new RecyclerAdapter2(fPodcastList,MainActivity.this);
             fRecycler.setAdapter(lRecyclerAdapter);
         }
-
     }
-
-
 }

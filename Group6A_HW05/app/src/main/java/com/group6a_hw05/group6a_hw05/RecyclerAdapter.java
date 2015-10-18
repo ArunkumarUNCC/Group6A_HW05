@@ -91,29 +91,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Podcas
     }
 
     //Function to start with Play Activity
-    public void startPlayActivity(Podcast apodcastItem){
+    public void startPlayActivity(Podcast aPodcastItem){
         Intent intent = new Intent(fGOTOPLAYACTIVITY);
-        intent.putExtra(fPODCASTREF,apodcastItem);
+        intent.putExtra(fPODCASTREF,aPodcastItem);
         fContext.startActivity(intent);
     }
 
 
     //Function to implement play audio
-    public void playAudio(String aAudioStreamLink){
-        if(!true){
-            fMediaPlayer = new MediaPlayer();
-//            fMediaPlayer.setOnPreparedListener(this);
-            try {
-                fMediaPlayer.setDataSource(aAudioStreamLink);
-                fMediaPlayer.prepare();
-                fMediaPlayer.start();
-//                fIsPlayed = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            fMediaPlayer.start();
-        }
+    public void playAudio(String aAudioStreamLink ){
+//        if(!true){
+//            fMediaPlayer = new MediaPlayer();
+////            fMediaPlayer.setOnPreparedListener(this);
+//            try {
+//                fMediaPlayer.setDataSource(aAudioStreamLink);
+//                fMediaPlayer.prepare();
+//                fMediaPlayer.start();
+////                fIsPlayed = true;
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }else{
+//            fMediaPlayer.start();
+//        }
 
     }
 }

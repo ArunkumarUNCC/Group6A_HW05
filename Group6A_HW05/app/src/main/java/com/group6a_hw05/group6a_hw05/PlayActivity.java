@@ -83,8 +83,7 @@ public class PlayActivity extends AppCompatActivity implements MediaPlayer.OnPre
         }else{
             fMediaPlayer.start();
         }
-//        int lTest = fMediaPlayer.getDuration();
-//        fMediaPlayer.
+
         fPlayButton.setVisibility(View.INVISIBLE);
         fPauseButton.setVisibility(View.VISIBLE);
     }
